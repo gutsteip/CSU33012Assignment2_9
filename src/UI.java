@@ -165,11 +165,14 @@ public class UI {
     void onCutClicked(ActionEvent ae) {
 
         Object source = ae.getSource();
+        // sets boolean depending on if text field needs to be cleared on next button
+        // press
         if (hasAnswered == true) {
             textArea.setText(null);
             hasAnswered = false;
         }
 
+        // updates text field depending on pressed button
         if (source == button0) {
             textArea.append("0");
         } else if (source == button1) {
