@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 
 public class UI {
     JFrame frame = new JFrame("cal");
-
     JPanel panel = new JPanel(new FlowLayout());
     JTextArea textArea = new JTextArea(1, 20);
     JButton button1 = new JButton("1");
@@ -25,9 +24,9 @@ public class UI {
     JButton divide = new JButton("/");
     JButton equals = new JButton("=");
     JButton clear = new JButton("C");
-
     JLabel label = new JLabel();
 
+    boolean hasAnswered = false;
     double numberOne, numberTwo, result;
     int addc = 0, subc = 0, mutlic = 0, divc = 0;
 
@@ -167,6 +166,10 @@ public class UI {
     void onCutClicked(ActionEvent ae) {
 
         Object source = ae.getSource();
+        if (hasAnswered == true) {
+            textArea.setText(null);
+            hasAnswered = false;
+        }
 
         if (source == button0) {
             textArea.append("0");
@@ -198,7 +201,8 @@ public class UI {
             textArea.append("/");
         } else if (source == equals) {
             String answer = Integer.toString(Web_Calculator.evaluateExpression(textArea.getText()));
-            textArea.setText(answer + " (Clear Answer!)");
+            textArea.setText(answer);
+            hasAnswered = true;
         } else if (source == clear) {
             textArea.setText(null);
         }
