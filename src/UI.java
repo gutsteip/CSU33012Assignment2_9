@@ -32,7 +32,6 @@ public class UI extends UIMain {
     JLabel label = new JLabel();
 
     double numberOne, numberTwo, result;
-
     int addc = 0, subc = 0, mutlic = 0, divc = 0;
 
     public UI() {
@@ -70,112 +69,96 @@ public class UI extends UIMain {
     }
 
     public void createListeners() {
-
-        this.button0.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        onCutClicked(ae);
-                    }
-                });
-        this.button1.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        onCutClicked(ae);
-                    }
-                });
-        this.button2.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        onCutClicked(ae);
-                    }
-                });
-        this.button3.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        onCutClicked(ae);
-                    }
-                });
-        this.button4.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        onCutClicked(ae);
-                    }
-                });
-        this.button5.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        onCutClicked(ae);
-                    }
-                });
-        this.button6.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        onCutClicked(ae);
-                    }
-                });
-        this.button7.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        onCutClicked(ae);
-                    }
-                });
-        this.button8.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        onCutClicked(ae);
-                    }
-                });
-        this.button9.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        onCutClicked(ae);
-                    }
-                });
-        this.add.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        onCutClicked(ae);
-                    }
-                });
-        this.subtract.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        onCutClicked(ae);
-                    }
-                });
-        this.multiply.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        onCutClicked(ae);
-                    }
-                });
-        this.divide.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        onCutClicked(ae);
-                    }
-                });
-        this.equals.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent ae) {
-                        onCutClicked(ae);
-                    }
-                });
+        this.button0.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
+        this.button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
+        this.button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
+        this.button3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
+        this.button4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
+        this.button5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
+        this.button6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
+        this.button7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
+        this.button8.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
+        this.button9.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
+        this.add.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
+        this.subtract.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
+        this.multiply.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
+        this.divide.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
+        this.equals.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
     }
 
     void onCutClicked(ActionEvent ae) {
