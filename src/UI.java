@@ -4,8 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class UI extends UIMain {
-
+public class UI {
     JFrame frame = new JFrame("cal");
 
     JPanel panel = new JPanel(new FlowLayout());
@@ -198,7 +197,8 @@ public class UI extends UIMain {
         } else if (source == divide) {
             textArea.append("/");
         } else if (source == equals) {
-            textArea.setText(null);
+            String answer = Integer.toString(Web_Calculator.evaluateExpression(textArea.getText()));
+            textArea.setText(answer + " (Clear Answer!)");
         } else if (source == clear) {
             textArea.setText(null);
         }
