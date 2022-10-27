@@ -20,13 +20,11 @@ public class UI extends UIMain {
     JButton button8 = new JButton("8");
     JButton button9 = new JButton("9");
     JButton button0 = new JButton("0");
-
     JButton add = new JButton("+");
     JButton subtract = new JButton("-");
     JButton multiply = new JButton("*");
     JButton divide = new JButton("/");
     JButton equals = new JButton("=");
-
     JButton clear = new JButton("C");
 
     JLabel label = new JLabel();
@@ -159,6 +157,12 @@ public class UI extends UIMain {
                 onCutClicked(ae);
             }
         });
+        this.clear.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
     }
 
     void onCutClicked(ActionEvent ae) {
@@ -194,6 +198,8 @@ public class UI extends UIMain {
         } else if (source == divide) {
             textArea.append("/");
         } else if (source == equals) {
+            textArea.setText(null);
+        } else if (source == clear) {
             textArea.setText(null);
         }
     }
