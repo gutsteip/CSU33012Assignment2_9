@@ -5,5 +5,4 @@ public class UIMain {
         UI window = new UI();
         window.frame.setVisible(true);
     }
-
 }
