@@ -28,7 +28,6 @@ public class UI {
 
     boolean hasAnswered = false;
     double numberOne, numberTwo, result;
-    int addc = 0, subc = 0, mutlic = 0, divc = 0;
 
     public UI() {
         ui();
@@ -207,4 +206,7 @@ public class UI {
             textArea.setText(null);
         }
     }
+    // TODO create getResult() that takes a inputed string and fetches the
+    // appropriate result or error from WebCalculator
+
 }
