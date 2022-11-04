@@ -122,10 +122,13 @@ public class Web_Calculator {
      *0 = isValidExpression
      *1 = isn't valid: operator issue or empty expression
      *2 = isn't valid: unknown character
+     *3 = isn't valid: decimal issue
      *4 = isn't valid: leading 0*/
     public static int isValidExpression(String expression)
     {
         boolean canBeOperator = false;
+        boolean lastCharDecimal = false;
+        boolean numHasChar = false;
         //Single character expression
         if(expression.length() == 1)
         {
@@ -141,6 +144,15 @@ public class Web_Calculator {
             //If it's an operator
             if(isOperator(currChar))
             {
+                //No decimal followed by operator (e.g: 3.+5)
+                if(lastCharDecimal)
+                    return 3;
+                else
+                {
+                    lastCharDecimal = false;
+                    numHasChar = false;
+                }
+
                 //If it isn't proper operator placement
                 if(!canBeOperator)
                     return 1;
@@ -176,6 +188,41 @@ public class Web_Calculator {
                     }
                 }
                 canBeOperator = true;
+                lastCharDecimal = false;
+            }
+            //If it is a decimal, make sure everything works
+            else if(currChar.equals('.'))
+            {
+                //No double decimals (e.g. .. OR 34.56.78)
+                if(lastCharDecimal || numHasChar)
+                    return 3;
+                //Make sure no trailing decimals or decimals after operators
+                if((i != 0 && !isOperator(expression.charAt(i-1))) || i != expression.length()-1)
+                    return 3;
+                lastCharDecimal = true;
+                numHasChar = true;
+            }
+            //Exp
+            else if(currChar.equals('e'))
+            {
+                if(!expression.substring(i, i+3).equals("exp"))
+                    return 2;
+                //No decimal followed by operator (e.g: 3.+5)
+                if(lastCharDecimal)
+                    return 3;
+                //Make sure no e+5 (invalid expression)
+                canBeOperator = false;
+            }
+            //Log
+            else if(currChar.equals('l'))
+            {
+                if(!expression.substring(i, i+3).equals("log"))
+                    return 2;
+                //No decimal followed by operator (e.g: 3.+5)
+                if(lastCharDecimal)
+                    return 3;
+                //Make sure no log+5 (invalid expression)
+                canBeOperator = false;
             }
             //If it isn't a valid character
             else
@@ -190,7 +237,7 @@ public class Web_Calculator {
 
     public static boolean isOperator(char currChar)
     {
-        if(currChar == '+' || currChar == '-' || currChar == '*' || currChar == '/' || currChar == '.')
+        if(currChar == '+' || currChar == '-' || currChar == '*' || currChar == '/' || currChar == '^')
             return true;
         return false;
     }
