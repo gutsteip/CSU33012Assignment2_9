@@ -24,6 +24,8 @@ public class Web_Calculator {
                 System.out.println("Error: Decimal number. Please try again.");
             else if (valid == 4)
                 System.out.println("ERROR: Leading 0. Please try again.");
+            else if (valid == 5)
+                System.out.println("ERROR: Parentheses issue. Please try again.");
         }
         input.close();
     }
@@ -123,12 +125,14 @@ public class Web_Calculator {
      *1 = isn't valid: operator issue or empty expression
      *2 = isn't valid: unknown character
      *3 = isn't valid: decimal issue
-     *4 = isn't valid: leading 0*/
+     *4 = isn't valid: leading 0
+     *5 = parentheses issue*/
     public static int isValidExpression(String expression)
     {
         boolean canBeOperator = false;
         boolean lastCharDecimal = false;
         boolean numHasChar = false;
+        int numUnclosedParen = 0;
         //Single character expression
         if(expression.length() == 1)
         {
@@ -224,10 +228,18 @@ public class Web_Calculator {
                 //Make sure no log+5 (invalid expression)
                 canBeOperator = false;
             }
+            //Parentheses
+            else if(currChar.equals('('))
+                numUnclosedParen++;
+            else if(currChar.equals(')'))
+                numUnclosedParen--;
             //If it isn't a valid character
             else
                 return 2;
         }
+        //If uneven parenthesis
+        if(numUnclosedParen != 0)
+            return 5;
         //Check to see if last character ISN'T operator
         if(isOperator(expression.charAt(expression.length()-1)))
             return 1;
