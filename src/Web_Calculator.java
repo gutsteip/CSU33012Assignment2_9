@@ -6,7 +6,8 @@ public class Web_Calculator {
         String exp = "";
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Please enter a mathematical expression, " + "\n" + "using addition, subtraction, multiplication, or division: \n");
+        System.out.println("Please enter a mathematical expression, " + "\n" + "using addition, subtraction, " +
+                "multiplication, division, powers, or exponential/logrithmic functions: \n");
         int valid = isValidExpression(exp);
         if(valid == 0)
         {
@@ -131,7 +132,7 @@ public class Web_Calculator {
     {
         boolean canBeOperator = false;
         boolean lastCharDecimal = false;
-        boolean numHasChar = false;
+        boolean numHasDecimal = false;
         int numUnclosedParen = 0;
         //Single character expression
         if(expression.length() == 1)
@@ -145,6 +146,10 @@ public class Web_Calculator {
         for(int i = 0; i < expression.length(); i++)
         {
             char currChar = expression.charAt(i);
+            System.out.println(i + " " + currChar);
+            //Make sure no hanging decimals
+            if(lastCharDecimal && !isNumber(currChar))
+                return 3;
             //If it's an operator
             if(isOperator(currChar))
             {
@@ -154,7 +159,7 @@ public class Web_Calculator {
                 else
                 {
                     lastCharDecimal = false;
-                    numHasChar = false;
+                    numHasDecimal = false;
                 }
 
                 //If it isn't proper operator placement
@@ -173,11 +178,14 @@ public class Web_Calculator {
                 //Zero handling
                 if(currChar == '0')
                 {
-                    //Leading 0 handling (make sure expression is 0+/-/* ...)
+                    //Leading 0 handling (make sure expression is 0+/-/* ... OR 0.SOMETHING)
                     if(i == 0)
                     {
                         if(!isOperator(expression.charAt(i+1)))
-                            return 4;
+                        {
+                            if(expression.charAt(i+1)!='.')
+                                return 4;
+                        }
                     }
                     //Check if expression isn't +/-/*0... (invalid)
                     else if(isOperator(expression.charAt(i-1)))
@@ -185,9 +193,12 @@ public class Web_Calculator {
                         //Not final character in string (avoid errors)
                         if(i < expression.length()-1)
                         {
-                            //If expression isn't operating on 0 (e.g. +0+)
+                            //If expression isn't operating on 0 (e.g. +0+) OR If next character isn't decimal (ex 0.5)
                             if(!isOperator(expression.charAt(i+1)))
-                                return 4;
+                            {
+                                if(expression.charAt(i+1)!='.')
+                                    return 4;
+                            }
                         }
                     }
                 }
@@ -195,19 +206,19 @@ public class Web_Calculator {
                 lastCharDecimal = false;
             }
             //If it is a decimal, make sure everything works
-            else if(currChar.equals('.'))
+            else if(currChar == '.')
             {
                 //No double decimals (e.g. .. OR 34.56.78)
-                if(lastCharDecimal || numHasChar)
+                if(lastCharDecimal || numHasDecimal)
                     return 3;
                 //Make sure no trailing decimals or decimals after operators
-                if((i != 0 && !isOperator(expression.charAt(i-1))) || i != expression.length()-1)
+                if((i != 0 && isOperator(expression.charAt(i-1))) || i == expression.length()-1)
                     return 3;
                 lastCharDecimal = true;
-                numHasChar = true;
+                numHasDecimal = true;
             }
             //Exp
-            else if(currChar.equals('e'))
+            else if(currChar == 'e')
             {
                 if(!expression.substring(i, i+3).equals("exp"))
                     return 2;
@@ -216,9 +227,11 @@ public class Web_Calculator {
                     return 3;
                 //Make sure no e+5 (invalid expression)
                 canBeOperator = false;
+                //Increment the counter to skip over the next two letters
+                i+=2;
             }
             //Log
-            else if(currChar.equals('l'))
+            else if(currChar == 'l')
             {
                 if(!expression.substring(i, i+3).equals("log"))
                     return 2;
@@ -227,13 +240,15 @@ public class Web_Calculator {
                     return 3;
                 //Make sure no log+5 (invalid expression)
                 canBeOperator = false;
+                //Increment the counter to skip over the next two letters
+                i+=2;
             }
             //Parentheses
-            else if(currChar.equals('('))
+            else if(currChar == '(')
                 numUnclosedParen++;
-            else if(currChar.equals(')'))
+            else if(currChar == ')')
                 numUnclosedParen--;
-            //If it isn't a valid character
+                //If it isn't a valid character
             else
                 return 2;
         }
