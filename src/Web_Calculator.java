@@ -1,4 +1,5 @@
 import java.util.*;
+import java.lang.Math;
 
 public class Web_Calculator {
     public static void main(String[] args)
@@ -31,16 +32,20 @@ public class Web_Calculator {
         input.close();
     }
 
-    public static int evaluateExpression(String expression)
+    public static float evaluateExpression(String exp)
     {
-        Stack<Integer> numStack = new Stack<Integer>();
+        Stack<Float> numStack = new Stack<Integer>();
         Stack<Character> opStack = new Stack<Character>();
 		/*
 		Part 1:
+		-Evaluate expressions in parentheses first
 		-Convert strings to numbers, put on numStack
-		-Put + and - on opStack
-		-If multiplication, pop numbers and do that
+		-Put low priority operators on opStack
+		-If higher priority operators, pop numbers and do that
 		*/
+
+        String expression = evalParentheses(exp);
+
         String currNum = "";
         for(int i = 0; i < expression.length(); i++)
         {
@@ -54,11 +59,12 @@ public class Web_Calculator {
             //If it is digit, add to current number
             else if(isNumber(c))
                 currNum += c;
-                //If it's operator
+
+            //If it's operator
             else if(isOperator(c))
             {
                 //Push current number (which has ended) to stack & reset currNum
-                numStack.push(Integer.valueOf(currNum));
+                numStack.push(Float.valueOf(currNum));
                 currNum = "";
                 //If operator stack isn't empty
                 if (!opStack.isEmpty())
@@ -67,8 +73,8 @@ public class Web_Calculator {
                     if(priority(opStack.peek()) >= priority(c))
                     {
                         //Get
-                        int num1 = numStack.pop();
-                        int num2 = numStack.pop();
+                        float num1 = numStack.pop();
+                        float num2 = numStack.pop();
                         char operator = opStack.pop();
                         numStack.push(doCalc(num1, num2, operator));
                         //Push new operator on stack
@@ -84,13 +90,13 @@ public class Web_Calculator {
         }
 		/*
 		 Part 2:
-		 Do repeated addition/subtraction until opStack is empty
+		 Do repeated operations until opStack is empty
 		 */
         while(!opStack.isEmpty())
         {
             //Get two most recent numbers and their operator
-            int num1 = numStack.pop();
-            int num2 = numStack.pop();
+            float num1 = numStack.pop();
+            float num2 = numStack.pop();
             char operator = opStack.pop();
             //Do calculation and push it onto stack
             numStack.push(doCalc(num1, num2, operator));
@@ -99,7 +105,41 @@ public class Web_Calculator {
         return numStack.pop();
     }
 
-    public static int doCalc(int num1, int num2, char operator)
+    public static String evalParentheses(String expression)
+    {
+        String newExp = expression;
+        int numOpenParentheses = 0;
+        int numCloseParentheses = 0;
+        int indexCloseParen = 0;
+
+        for(int i = expression.length()-1; i >=0; i--)
+        {
+            if(expression.charAt(i) == ')')
+            {
+                indexCloseParen = i;
+                numCloseParentheses++;
+            }
+            else if(expression.charAt(i) == '(')
+            {
+                numOpenParentheses++;
+                if(numOpenParentheses == numCloseParentheses)
+                {
+                    //Get two strings that will be important
+                    String insideWithParen = expression.substring(i, indexCloseParen+1);
+                    String insideParen = expression.substring(i+1, indexCloseParen);
+
+                    //Evaluate expression inside of parentheses (will call recusively)
+                    String evaledParentheses = evaluateExpression(insideParen).toString;
+
+                    //Replace the string with the new String
+                    newExp = newExp.replace(insideWithParen, evaledParentheses);
+                }
+            }
+        }
+        return newExp;
+    }
+
+    public static float doCalc(float num1, float num2, char operator)
     {
         if(operator == '*')
             return num1 * num2;
@@ -107,14 +147,18 @@ public class Web_Calculator {
             return num2 / num1;
         else if(operator == '+')
             return num1 +  num2;
-        else //subtraction
+        else if(operator == '-')
             return num2 - num1;
+        else if(operator == '^')
+            return Math.pow(num2,num1);
     }
 
     //For getting operator priority (mult = div > sub = add)
     public static int priority(char c)
     {
-        if(c == '*' || c == '/')
+        if(c == '^')
+            return 2;
+        else if(c == '*' || c == '/')
             return 1;
         else
             return 0;
@@ -133,6 +177,7 @@ public class Web_Calculator {
         boolean canBeOperator = false;
         boolean lastCharDecimal = false;
         boolean numHasDecimal = false;
+        boolean hasHangingParen = false;
         int numUnclosedParen = 0;
         //Single character expression
         if(expression.length() == 1)
@@ -146,7 +191,6 @@ public class Web_Calculator {
         for(int i = 0; i < expression.length(); i++)
         {
             char currChar = expression.charAt(i);
-            System.out.println(i + " " + currChar);
             //Make sure no hanging decimals
             if(lastCharDecimal && !isNumber(currChar))
                 return 3;
@@ -220,7 +264,7 @@ public class Web_Calculator {
             //Exp
             else if(currChar == 'e')
             {
-                if(!expression.substring(i, i+3).equals("exp"))
+                if(!expression.substring(i, i+4).equals("exp("))
                     return 2;
                 //No decimal followed by operator (e.g: 3.+5)
                 if(lastCharDecimal)
@@ -233,7 +277,7 @@ public class Web_Calculator {
             //Log
             else if(currChar == 'l')
             {
-                if(!expression.substring(i, i+3).equals("log"))
+                if(!expression.substring(i, i+3).equals("ln("))
                     return 2;
                 //No decimal followed by operator (e.g: 3.+5)
                 if(lastCharDecimal)
@@ -241,19 +285,28 @@ public class Web_Calculator {
                 //Make sure no log+5 (invalid expression)
                 canBeOperator = false;
                 //Increment the counter to skip over the next two letters
-                i+=2;
+                i++;
             }
             //Parentheses
             else if(currChar == '(')
+            {
+                hasHangingParen = true;
                 numUnclosedParen++;
+            }
             else if(currChar == ')')
+            {
+                if(!hasHangingParen)
+                    return 5;
                 numUnclosedParen--;
+                if(numUnclosedParen == 0)
+                    hasHangingParen = false;
+            }
                 //If it isn't a valid character
             else
                 return 2;
         }
         //If uneven parenthesis
-        if(numUnclosedParen != 0)
+        if(numUnclosedParen != 0 || hasHangingParen)
             return 5;
         //Check to see if last character ISN'T operator
         if(isOperator(expression.charAt(expression.length()-1)))
