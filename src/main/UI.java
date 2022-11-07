@@ -27,7 +27,7 @@ public class UI {
     JButton equals = new JButton("=");
     JButton clear = new JButton("C");
     JButton decimal = new JButton(".");
-    JButton log = new JButton("log");
+    JButton log = new JButton("ln");
     JButton power = new JButton("^");
     JButton oParenth = new JButton("(");
     JButton cParenth = new JButton(")");
@@ -76,135 +76,136 @@ public class UI {
     }
 
     public void createListeners() {
+
         this.button0.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.button4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.button5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.button6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.button7.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.button8.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.button9.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.add.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.subtract.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.multiply.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.divide.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.equals.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.clear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.decimal.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.log.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.power.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.oParenth.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
         this.cParenth.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                onCutClicked(ae);
+                onButtonClick(ae);
             }
         });
     }
 
-    void onCutClicked(ActionEvent ae) {
+    void onButtonClick(ActionEvent ae) {
 
         Object source = ae.getSource();
         // sets boolean depending on if text field needs to be cleared on next button
@@ -213,7 +214,6 @@ public class UI {
             textArea.setText(null);
             hasAnswered = false;
         }
-
         // updates text field depending on pressed button
         if (source == button0) {
             textArea.append("0");
