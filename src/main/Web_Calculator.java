@@ -4,32 +4,6 @@ import java.util.*;
 import java.lang.Math;
 
 public class Web_Calculator {
-    public static void main(String[] args) {
-        String exp = "";
-        Scanner input = new Scanner(System.in);
-
-        System.out.println("Please enter a mathematical expression, " + "\n" + "using addition, subtraction, " +
-                "multiplication, division, powers, or exponential/logrithmic functions: \n");
-        int valid = isValidExpression(exp);
-        if (valid == 0) {
-            float result = evaluateExpression(exp);
-            System.out.println("The result is : " + result);
-        }
-        // Print out specific error message and reset exp
-        else {
-            if (valid == 1)
-                System.out.println("Error: Operator issue or empty expression. Please try again.");
-            else if (valid == 2)
-                System.out.println("Error: Unknown character. Please try again.");
-            else if (valid == 3)
-                System.out.println("Error: Decimal number. Please try again.");
-            else if (valid == 4)
-                System.out.println("ERROR: Leading 0. Please try again.");
-            else if (valid == 5)
-                System.out.println("ERROR: Parentheses issue. Please try again.");
-        }
-        input.close();
-    }
 
     public static float evaluateExpression(String exp) {
         Stack<Float> numStack = new Stack<Float>();
