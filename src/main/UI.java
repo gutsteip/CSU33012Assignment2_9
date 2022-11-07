@@ -1,3 +1,5 @@
+package main;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.*;
@@ -24,6 +26,11 @@ public class UI {
     JButton divide = new JButton("/");
     JButton equals = new JButton("=");
     JButton clear = new JButton("C");
+    JButton decimal = new JButton(".");
+    JButton log = new JButton("log");
+    JButton power = new JButton("^");
+    JButton oParenth = new JButton("(");
+    JButton cParenth = new JButton(")");
     JLabel label = new JLabel();
 
     boolean hasAnswered = false;
@@ -53,6 +60,11 @@ public class UI {
         panel.add(divide);
         panel.add(clear);
         panel.add(equals);
+        panel.add(decimal);
+        panel.add(log);
+        panel.add(power);
+        panel.add(oParenth);
+        panel.add(cParenth);
         panel.add(label);
     }
 
@@ -160,6 +172,36 @@ public class UI {
                 onCutClicked(ae);
             }
         });
+        this.decimal.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
+        this.log.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
+        this.power.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
+        this.oParenth.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
+        this.cParenth.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onCutClicked(ae);
+            }
+        });
     }
 
     void onCutClicked(ActionEvent ae) {
@@ -202,14 +244,39 @@ public class UI {
         } else if (source == divide) {
             textArea.append("/");
         } else if (source == equals) {
-            String answer = Integer.toString(Web_Calculator.evaluateExpression(textArea.getText()));
-            textArea.setText(answer);
-            hasAnswered = true;
+            String expression = textArea.getText();
+            getResult(expression);
         } else if (source == clear) {
             textArea.setText(null);
+        } else if (source == log) {
+            textArea.append("ln");
+        } else if (source == decimal) {
+            textArea.append(".");
+        } else if (source == power) {
+            textArea.append("^");
+        } else if (source == oParenth) {
+            textArea.append("(");
+        } else if (source == cParenth) {
+            textArea.append(")");
         }
     }
-    // TODO create getResult() that takes a inputed string and fetches the
-    // appropriate result or error from WebCalculator
 
+    public void getResult(String exp) {
+        int valid = Web_Calculator.isValidExpression(exp);
+        if (valid == 0) {
+            textArea.setText(Float.toString(Web_Calculator.evaluateExpression(exp)));
+        }
+        // Print out specific error message and reset exp
+        else {
+            if (valid == 1)
+                System.out.println("Error: Operator issue or empty expression. Please try again.");
+            else if (valid == 2)
+                System.out.println("Error: Unknown character. Please try again.");
+            else if (valid == 3)
+                System.out.println("Error: Decimal number. Please try again.");
+            else if (valid == 4)
+                System.out.println("ERROR: Leading 0. Please try again.");
+        }
+        hasAnswered = true;
+    }
 }
