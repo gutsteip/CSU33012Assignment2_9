@@ -12,7 +12,7 @@ public class Web_Calculator {
         int valid = isValidExpression(exp);
         if(valid == 0)
         {
-            int result = evaluateExpression(exp);
+            float result = evaluateExpression(exp);
             System.out.println("The result is : " + result);
         }
         //Print out specific error message and reset exp
