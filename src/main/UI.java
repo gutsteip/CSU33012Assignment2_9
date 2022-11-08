@@ -1,12 +1,13 @@
-package main;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.awt.event.ActionEvent;
 
 public class UI {
+    private static final DecimalFormat df = new DecimalFormat("0.000");
     JFrame frame = new JFrame("cal");
     JPanel panel = new JPanel(new FlowLayout());
     JTextArea textArea = new JTextArea(1, 20);
@@ -28,6 +29,7 @@ public class UI {
     JButton clear = new JButton("C");
     JButton decimal = new JButton(".");
     JButton log = new JButton("ln");
+    JButton exp = new JButton("exp");
     JButton power = new JButton("^");
     JButton oParenth = new JButton("(");
     JButton cParenth = new JButton(")");
@@ -62,6 +64,7 @@ public class UI {
         panel.add(equals);
         panel.add(decimal);
         panel.add(log);
+        panel.add(exp);
         panel.add(power);
         panel.add(oParenth);
         panel.add(cParenth);
@@ -203,6 +206,12 @@ public class UI {
                 onButtonClick(ae);
             }
         });
+        this.exp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                onButtonClick(ae);
+            }
+        });
     }
 
     void onButtonClick(ActionEvent ae) {
@@ -258,13 +267,15 @@ public class UI {
             textArea.append("(");
         } else if (source == cParenth) {
             textArea.append(")");
+        } else if (source == exp) {
+            textArea.append("exp");
         }
     }
 
     public void getResult(String exp) {
         int valid = Web_Calculator.isValidExpression(exp);
         if (valid == 0) {
-            textArea.setText(Float.toString(Web_Calculator.evaluateExpression(exp)));
+            textArea.setText(df.format(Web_Calculator.evaluateExpression(exp)));
         }
         // Print out specific error message and reset exp
         else {
